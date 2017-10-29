@@ -1,30 +1,32 @@
 package com.project.HospitalProject;
 
+import com.project.HospitalProject.config.SpringConfig;
+import com.project.HospitalProject.loader.FXMLLoaderProvider;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main extends Application {
 
-    //Stage window;
-    //Scene scene1,scene2;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-       // window = primaryStage;
+    public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        //Создаем контекст спринга, для связки с FX
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+        FXMLLoader loader = context.getBean(FXMLLoaderProvider.class).getContext("/main.fxml");
+        Parent root = loader.load();
+
+        //Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+
         primaryStage.setTitle("Hospital Model");
-        Scene scene = new Scene(root,700,400);
-        //scene.getStylesheets().add(getClass().getResource("/styles/my.css").toExternalForm());
+        Scene scene = new Scene(root, 700, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-       // window = primaryStage;
-
-
     }
 
     public static void main(String[] args) {

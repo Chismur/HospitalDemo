@@ -1,7 +1,10 @@
 package com.project.HospitalProject.controllers;
 
-public class MainController {
 
+import org.springframework.stereotype.Component;
+
+@Component
+public class MainController {
 
 
 }
